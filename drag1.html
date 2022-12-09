@@ -1,0 +1,61 @@
+
+<div class="container">
+  <div id="dragElement" class="draggableElement">
+    Drag Me
+  </div>
+  <div id="gridContainer" class="gridContainer">
+    <div class="gridElement" style="width: 1000px; height: 1000px;">
+    </div>
+  </div>
+</div>
+
+<style>
+  .container {
+    width: 1000px;
+    height: 1000px;
+  }
+  .draggableElement {
+    position: absolute;
+  }
+  .gridContainer {
+    position: relative;
+    width: 1000px;
+    height: 1000px;
+  }
+  .gridElement {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+</style>
+
+<script>
+  const dragElement = document.getElementById("dragElement");
+  const gridContainer = document.getElementById("gridContainer");
+
+  function drag(e) {
+    e.dataTransfer.setData("text", e.target.id);
+  }
+
+  function drop(e) {
+    e.preventDefault();
+    const data = e.dataTransfer.getData("text");
+    const element = document.getElementById(data);
+
+    // Calculate the position of the element relative to the grid
+    const x = e.clientX - gridContainer.offsetLeft;
+    const y = e.clientY - gridContainer.offsetTop;
+
+    // Round the position to the nearest multiple of 1000
+    const snappedX = Math.round(x / 1000) * 1000;
+    const snappedY = Math.round(y / 1000) * 1000;
+
+    // Update the position of the element
+    element.style.left = snappedX + "px";
+    element.style.top = snappedY + "px";
+  }
+
+  dragElement.addEventListener("dragstart", drag);
+  gridContainer.addEventListener("drop", drop);
+  gridContainer.addEventListener("dragover", (e) => e.preventDefault());
+</script>

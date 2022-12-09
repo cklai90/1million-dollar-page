@@ -1,0 +1,95 @@
+create javascript, html, css that can create custom size div and draggable div onto another div that can snap to 1000x1000 grid. The draggable div should also be upload image on it. once uploaded , the div is no longer draggable.
+
+<html>
+<head>
+    <style>
+        #container {
+            width: 1000px;
+            height: 1000px;
+            background-color: gray;
+            position: relative;
+        }
+        .draggable {
+            position: absolute;
+            background-color: #ccc;
+            border: 1px solid black;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+        .upload {
+            border: 1px solid black;
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <form id="form1" enctype="multipart/form-data">
+        <input type="file" name="file1" id="file1">
+    </form>
+    <script>
+        var container = document.getElementById('container');
+        var draggable = document.createElement('div');
+        var upload = document.createElement('div');
+        draggable.className = 'draggable';
+        upload.className = 'upload';
+        container.appendChild(draggable);
+        
+        // Dragging
+        var position = {x: 0, y: 0}; 
+        var offset = {x: 0, y: 0};
+        draggable.addEventListener('mousedown', dragStart, false);
+        document.addEventListener('mouseup', dragEnd, false);
+        
+        // Functions to handle dragging
+        function dragStart(e) {
+            offset.x = e.clientX - draggable.offsetLeft;
+            offset.y = e.clientY - draggable.offsetTop;
+            document.addEventListener('mousemove', drag, false);
+        }
+        
+        function drag(e) {
+            position.x = e.clientX - offset.x;
+            position.y = e.clientY - offset.y;
+            draggable.style.left = position.x + 'px';
+            draggable.style.top = position.y + 'px';
+        }
+        
+        function dragEnd(e) {
+            document.removeEventListener('mousemove', drag, false);
+            container.appendChild(draggable);
+            snapToGrid();
+        }
+        
+        // Snaps the div to a 1000x1000 grid
+        function snapToGrid() {
+            var x = Math.round(draggable.offsetLeft/1000)*1000;
+            var y = Math.round(draggable.offsetTop/1000)*1000;
+            draggable.style.left = x + 'px';
+            draggable.style.top = y + 'px';
+        }
+        
+        // Uploading images
+        var fileInput = document.getElementById('file1');
+        fileInput.addEventListener('change', uploadImage, false);
+        
+        function uploadImage(e) {
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                upload.style.backgroundImage = 'url(' + e.target.result + ')';
+                upload.style.backgroundSize = 'cover';
+                upload.style.backgroundRepeat = 'no-repeat';
+                upload.addEventListener('mousedown', dragStart, false);
+                container.appendChild(upload);
+                snapToGrid();
+            }
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+</html>

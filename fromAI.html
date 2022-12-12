@@ -61,3 +61,58 @@ function handleDrop(event) {
 }
 
 //This should allow users to drag the div with the class name "Cat" from container A to container B.
+
+----------------------------
+
+To make the div with the class name "Cat" snap to the grid in container B, you can modify the handleDrop function to calculate the position of the div based on the grid size and the current mouse position.
+
+First, you can add the ondragover event listener to container B to allow the div to be dropped in it.
+
+<div id="containerB" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+  Drop the div here
+</div>
+
+-----------
+
+Next, you can create the handleDragOver function in JavaScript to handle the drag over event and prevent the default behavior (which is to not allow the drop).
+
+function handleDragOver(event) {
+  // Prevent the default behavior (prevent the browser from opening the file)
+  event.preventDefault();
+}
+
+------------------------
+
+Then, you can modify the handleDrop function to calculate the position of the div based on the grid size and the current mouse position.
+
+function handleDrop(event) {
+  // Prevent the default behavior (prevent the browser from opening the file)
+  event.preventDefault();
+
+  // Calculate the position of the div based on the grid size and the current mouse position
+  const gridSize = 100; // 100px x 100px
+  const elementSize = 10; // 10px x 10px
+  const x = Math.floor(event.clientX / gridSize) * gridSize;
+  const y = Math.floor(event.clientY / gridSize) * gridSize;
+
+  // Get the data that was transferred during the drag and drop process
+  const className = event.dataTransfer.getData("text");
+
+  // Get the element that was dragged
+  const draggedElement = document.querySelector(`.${className}`);
+
+  // Set the position of the element
+  draggedElement.style.left = `${x}px`;
+  draggedElement.style.top = `${y}px`;
+
+  // Add the element to the container where it was dropped
+  event.target.appendChild(draggedElement);
+}
+
+
+------------------------------
+
+This should make the div with the class name "Cat" snap to the grid in container B when it is dropped in it.
+
+
+

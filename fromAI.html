@@ -149,3 +149,99 @@ for (let i = 0; i < 20; i++) {
 // Add the grid to the document
 document.body.appendChild(gridContainer);
 
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grid</title>
+  <style>
+    /* Style the selected area */
+    .selected {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Create a container element to hold the grid
+    const gridContainer = document.createElement('div');
+
+    // Create 20 row elements
+    for (let i = 0; i < 20; i++) {
+      const row = document.createElement('div');
+      // Add styling to the rows, such as setting the display to "flex"
+      // so that the cells will be arranged in a row
+      row.style.display = 'flex';
+
+      // Create 20 cell elements for each row
+      for (let j = 0; j < 20; j++) {
+        const cell = document.createElement('div');
+        // Add styling to the cells, such as a set width and height,
+        // and a border to make the grid visible
+        cell.style.width = '25px';
+        cell.style.height = '25px';
+        cell.style.border = '1px solid black';
+
+        // Add event listeners to the cell to track mouse events
+        cell.addEventListener('mousedown', onMouseDown);
+        cell.addEventListener('mousemove', onMouseMove);
+        cell.addEventListener('mouseup', onMouseUp);
+
+        // Add the cell to the row
+        row.appendChild(cell);
+        gridContainer.appendChild(row);
+        document.body.appendChild(gridContainer);
+        let isMouseDown = false;
+
+        function onMouseDown(event) {
+          // Set a flag to indicate that the mouse is down
+          isMouseDown = true;
+
+          // Add the "selected" class to the cell that was clicked
+          event.target.classList.add('selected');
+        }
+
+        function onMouseMove(event) {
+          // Check if the mouse is down
+          if (!isMouseDown) {
+            return;
+          }
+
+          // Add the "selected" class to the cell that the mouse is over
+          event.target.classList.add('selected');
+        }
+
+        function onMouseUp(event) {
+          // Set a flag to indicate that the mouse is up
+          isMouseDown = false;
+        }
+
+--------------------------------------------------      
+        
+//  To create a new div based on the selected area of cells, you can use the getBoundingClientRect method
+// to get the size and position of the selected cells. This method returns a DOMRect object that contains the coordinates and dimensions of the selected cells.
+
+// Here is an example of how you can use this method to create a new div based on the selected cells:       
+        
+// This code will create a new div element and set its position and size based on the bounding rectangle
+// of the selected cells. You can adjust the styling of the new div as needed to achieve the desired appearance.
+        
+// Get the bounding rectangle of the selected cells
+const rect = document.querySelector('.selected').getBoundingClientRect();
+
+// Create a new div element
+const newDiv = document.createElement('div');
+
+// Set the position and size of the new div based on the bounding rectangle of the selected cells
+newDiv.style.position = 'absolute';
+newDiv.style.left = `${rect.left}px`;
+newDiv.style.top = `${rect.top}px`;
+newDiv.style.width = `${rect.width}px`;
+newDiv.style.height = `${rect.height}px`;
+
+// Add the new div to the page
+document.body.appendChild(newDiv);
+
+

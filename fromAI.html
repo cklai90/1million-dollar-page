@@ -115,4 +115,37 @@ function handleDrop(event) {
 This should make the div with the class name "Cat" snap to the grid in container B when it is dropped in it.
 
 
+<!-- -----------------------------------
+To create a grid with 20 rows and 20 cells per row, you can use a nested loop to create the cells. Inside the outer loop, which creates the rows, you can create another loop that creates the cells for each row.
+
+Here is an example of how you could modify the code from the previous answer to create a 20x20 grid:
+
+// Create a container element to hold the grid
+const gridContainer = document.createElement('div'); -->
+
+// Create 20 row elements
+for (let i = 0; i < 20; i++) {
+  const row = document.createElement('div');
+  // Add styling to the rows, such as setting the display to "flex"
+  // so that the cells will be arranged in a row
+  row.style.display = 'flex';
+
+  // Create 20 cell elements for each row
+  for (let j = 0; j < 20; j++) {
+    const cell = document.createElement('div');
+    // Add styling to the cells, such as a set width and height,
+    // and a border to make the grid visible
+    cell.style.width = '25px';
+    cell.style.height = '25px';
+    cell.style.border = '1px solid black';
+    // Add the cell to the row
+    row.appendChild(cell);
+  }
+
+  // Add the row to the grid container
+  gridContainer.appendChild(row);
+}
+
+// Add the grid to the document
+document.body.appendChild(gridContainer);
 

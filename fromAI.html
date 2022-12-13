@@ -265,20 +265,28 @@ document.body.appendChild(newDiv);
 document.body.addEventListener('keydown', event => {
   // Check if the enter key was pressed
   if (event.key === 'Enter') {
-    // Create a new div element
-    const newDiv = document.createElement('div');
+    // Check if there is a div with the class "CAT" on the page
+    if (document.querySelector('.CAT')) {
+      // Create a new div element
+      const newDiv = document.createElement('div');
 
-    // Set the size and position of the new div
-    newDiv.style.position = 'absolute';
-    newDiv.style.left = '50%';
-    newDiv.style.top = '0';
-    newDiv.style.width = '500px';
-    newDiv.style.height = '500px';
-    newDiv.style.marginLeft = '-250px';
+      // Set the size and position of the new div
+      newDiv.style.position = 'absolute';
+      newDiv.style.left = '50%';
+      newDiv.style.top = '0';
+      newDiv.style.width = '500px';
+      newDiv.style.height = '500px';
+      newDiv.style.marginLeft = '-250px';
+      newDiv.classList.add('DOG');
 
-    // Add the new div to the page
-    document.body.appendChild(newDiv);
+      // Add the new div to the page
+      document.body.appendChild(newDiv);
+    } else {
+      // Alert the user that no cell has been selected
+      alert('No cell selected, please drag to select cell');
+    }
   }
 });
+
 
 

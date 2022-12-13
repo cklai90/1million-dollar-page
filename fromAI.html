@@ -328,3 +328,49 @@ if (document.querySelector('.DOG')) {
     input.click();
   });
 }
+
+        
+        
+        
+// Check if there is a div with the class "DOG" on the page
+if (document.querySelector('.DOG')) {
+  // Get the div with the class "DOG"
+  const dogDiv = document.querySelector('.DOG');
+
+  // Create a button to upload a photo
+  const uploadButton = document.createElement('button');
+  uploadButton.innerText = 'Upload Photo';
+
+  // Add the button to the div
+  dogDiv.appendChild(uploadButton);
+
+  // Add an event listener to the button that listens for the "click" event
+  uploadButton.addEventListener('click', event => {
+    // Create an input element that allows the user to select a file
+    const input = document.createElement('input');
+    input.type = 'file';
+
+    // When the user selects a file, create an image element and preview the selected image
+    input.addEventListener('change', event => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = event => {
+        // Create an image element and preview the selected image
+        const image = document.createElement('img');
+        image.src = event.target.result;
+        dogDiv.appendChild(image);
+
+        // Get the div with the class "CAT"
+        const catDiv = document.querySelector('.CAT');
+        // Get the bounding rectangle of the "CAT" div
+        const rect = catDiv.getBoundingClientRect();
+
+        // Set the dimensions of the previewed image to fit within the "CAT" div
+        image.style.maxWidth = `${rect.width}px`;
+        image.style.maxHeight = `${rect.height}px`;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Trigger the file selection dialog
+    input.click();

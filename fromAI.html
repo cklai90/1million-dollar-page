@@ -240,8 +240,45 @@ newDiv.style.left = `${rect.left}px`;
 newDiv.style.top = `${rect.top}px`;
 newDiv.style.width = `${rect.width}px`;
 newDiv.style.height = `${rect.height}px`;
+newDiv.classList.add('CAT');
+newDiv.style.color = 'red';
+// Add the new div to the page
+document.body.appendChild(newDiv);
+
+////// new div for input data
+        
+        // Create a new div element
+const newDiv = document.createElement('div');
+
+// Set the size and position of the new div
+newDiv.style.position = 'absolute';
+newDiv.style.left = '50%';
+newDiv.style.top = '0';
+newDiv.style.width = '500px';
+newDiv.style.height = '500px';
+newDiv.style.marginLeft = '-250px';
 
 // Add the new div to the page
 document.body.appendChild(newDiv);
+
+// Attach an event listener to the body that listens for the "keydown" event
+document.body.addEventListener('keydown', event => {
+  // Check if the enter key was pressed
+  if (event.key === 'Enter') {
+    // Create a new div element
+    const newDiv = document.createElement('div');
+
+    // Set the size and position of the new div
+    newDiv.style.position = 'absolute';
+    newDiv.style.left = '50%';
+    newDiv.style.top = '0';
+    newDiv.style.width = '500px';
+    newDiv.style.height = '500px';
+    newDiv.style.marginLeft = '-250px';
+
+    // Add the new div to the page
+    document.body.appendChild(newDiv);
+  }
+});
 
 

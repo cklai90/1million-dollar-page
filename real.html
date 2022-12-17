@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Million Dollar Homepage</title>
+  <style>
+    .pixel {
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="pixel-grid">
+  </div>
+  <form id="purchase-form">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <label for="website">Website:</label><br>
+    <input type="url" id="website" name="website"><br>
+    <input type="submit" value="Purchase Pixel">
+  </form>
+  <script>
+    // Generate a grid of 100x100 pixels (10,000 pixels total)
+    for (let i = 0; i < 10000; i++) {
+      let pixel = document.createElement('div');
+      pixel.classList.add('pixel');
+      document.getElementById('pixel-grid').appendChild(pixel);
+    }
+    // Add event listener to the form to handle pixel purchases
+    document.getElementById('purchase-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      // Get the form data
+      let name = document.getElementById('name').value;
+      let email = document.getElementById('email').value;
+      let website = document.getElementById('website').value;
+      // Send the form data to the server to process the payment and update the pixel grid
+      // You would need to write a server-side script to handle this process
+      // Once the pixel has been purchased, you can update the style of the pixel to display the user's information
+      let pixels = document.getElementsByClassName('pixel');
+      for (let i = 0; i < pixels.length; i++) {
+        if (pixels[i].style.backgroundColor === 'white') {
+          pixels[i].style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+          pixels[i].innerHTML = '<a href="' + website + '">' + name + '</a>';
+          break;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
